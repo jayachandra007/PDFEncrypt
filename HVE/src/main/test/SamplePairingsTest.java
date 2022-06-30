@@ -105,19 +105,34 @@ public class SamplePairingsTest {
 	public static void main(String[] args) {
 		SamplePairingsTest hveip08 = new SamplePairingsTest();
 		long start, end;
-		
-		int n = 50;
+
+		int n = 5;
 		AsymmetricCipherKeyPair keyPair = hveip08.setup(n);
-		
+
 		int[][] vectors = hveip08.createMatchingVectors(n);
+		for(int []v : vectors) {
+			for(int e : v) {
+				System.out.print(e);
+			}
+			System.out.println();
+		}
+		// vector[0] -> 
+		// vector[1] -> 
 		start = System.nanoTime();
 		assertEquals(true, hveip08.evaluate(hveip08.keyGen(keyPair.getPrivate(), vectors[0]),
 				hveip08.enc(keyPair.getPublic(), vectors[1])));
 		end = System.nanoTime();
 		System.out.println(end - start);
-		
+
 		start = System.nanoTime();
 		vectors = hveip08.createNonMatchingVectors(n);
+		for(int []v : vectors) {
+			for(int e : v) {
+				System.out.print(e);
+			}
+			System.out.println();
+		}
+		
 		assertEquals(false, hveip08.evaluate(hveip08.keyGen(keyPair.getPrivate(), vectors[0]),
 				hveip08.enc(keyPair.getPublic(), vectors[1])));
 		end = System.nanoTime();
